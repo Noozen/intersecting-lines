@@ -9,23 +9,29 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LineSegmentsSolver {
 
-	public List<List<Line2D>> grupyOdcinkow = new ArrayList<List<Line2D>>();
+	public List<SortedSet<Line2D>> grupyOdcinkow = new ArrayList<SortedSet<Line2D>>();
 
 	public void dodajNowyOdcinek(Line2D linia) {
-		List<Line2D> grupaDoKtorejDolaczylOdcinek = null;
+		SortedSet<Line2D> grupaDoKtorejDolaczylOdcinek = null;
 
-		Iterator<List<Line2D>> i = grupyOdcinkow.iterator();
+		Iterator<SortedSet<Line2D>> i = grupyOdcinkow.iterator();
 		while (i.hasNext()) {
-			List<Line2D> grupaOdcinkow = i.next();
+			SortedSet<Line2D> grupaOdcinkow = i.next();
 			for (Line2D odcinek : grupaOdcinkow) {
+				if(Math.min(linia.getX1(), linia.getX2()) > Math.max(odcinek.getX1(), odcinek.getX2()))
+					continue;
+				if(Math.max(linia.getX1(), linia.getX2()) < Math.min(odcinek.getX1(), odcinek.getX2()))
+					break;
+				
 				if (linia.intersectsLine(odcinek)) {
 					if (grupaDoKtorejDolaczylOdcinek == null) {
 						grupaDoKtorejDolaczylOdcinek = grupaOdcinkow;
@@ -41,7 +47,7 @@ public class LineSegmentsSolver {
 		}
 
 		if (grupaDoKtorejDolaczylOdcinek == null) {
-			List<Line2D> nowaLista = new LinkedList<Line2D>();
+			SortedSet<Line2D> nowaLista = new TreeSet<Line2D>((o1, o2) -> Double.compare(Math.min(o1.getX1(), o1.getX2()), Math.min(o2.getX1(), o2.getX2())));
 			nowaLista.add(linia);
 			grupyOdcinkow.add(nowaLista);
 		}
@@ -79,7 +85,7 @@ public class LineSegmentsSolver {
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder("");
-		for (List<Line2D> grupaOdcinkow : grupyOdcinkow) {
+		for (SortedSet<Line2D> grupaOdcinkow : grupyOdcinkow) {
 			for (Line2D odcinek : grupaOdcinkow) {
 				stringBuilder.append(new DecimalFormat("#.##").format(odcinek.getX1()) + ";"
 						+ new DecimalFormat("#.##").format(odcinek.getY1()) + ";"

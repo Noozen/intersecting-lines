@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.geom.Line2D;
 import java.util.List;
 import java.util.Random;
+import java.util.SortedSet;
 
 import javax.swing.JPanel;
 
@@ -26,7 +27,7 @@ public class Lines extends JPanel {
 		super.paintComponent(g);
 		// solver.wczytajWszystkieOdcinkiZPliku("/input.txt");
 
-		for (List<Line2D> grupa : solver.grupyOdcinkow) {
+		for (SortedSet<Line2D> grupa : solver.grupyOdcinkow) {
 			g.setColor(new Color(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
 			for (Line2D linia : grupa) {
 				g.drawLine((int) linia.getX1(), (int) linia.getY1(), (int) linia.getX2(), (int) linia.getY2());
