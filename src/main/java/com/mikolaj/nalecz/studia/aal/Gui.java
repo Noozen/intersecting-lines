@@ -5,6 +5,8 @@ import java.awt.ScrollPane;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.naming.ldap.Rdn;
 import javax.swing.ButtonGroup;
@@ -16,6 +18,8 @@ import com.mikolaj.nalecz.studia.aal.logika.LineSegmentsSolver;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.JRadioButton;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class Gui {
 
@@ -28,6 +32,9 @@ public class Gui {
 	private JRadioButton rdbtnRandom;
 	private JRadioButton rdbtnRandomV;
 	private JRadioButton rdbtnRandomV_1;
+	private JCheckBox chckbxSortedset;
+	private JCheckBox chckbxPomijaj;
+	private JLabel lblOpcje;
 
 	/**
 	 * Launch the application.
@@ -128,6 +135,30 @@ public class Gui {
 		buttonGroup.add(rdbtnRandomV);
 		buttonGroup.add(rdbtnRandomV_1);
 		buttonGroup.add(rdbtnRandom);
+		
+		chckbxSortedset = new JCheckBox("TreeSet");
+		chckbxSortedset.setToolTipText("Po zaznaczeniu tej opcji program bedzie uzywal TreeSet'u zamiast LinkedListy.\r\nEfektem tego bedzie spowolnienie laczenia grup odcinkow z O(1) do log(n).\r\nJezeli zaznaczona jest opcja \"Pomijaj\", pomijanie bedzie dzialalo duzo bardziej \r\nefektywnie, gdyz zamiast jednego odcinka, beda pomijane\r\nwszystkie odcinki po pierwszym pominietym. Jest to mozliwe poniewaz sa one posortowane od lewego do prawego.");
+		chckbxSortedset.setBounds(1, 232, 97, 23);
+		frame.getContentPane().add(chckbxSortedset);
+		chckbxSortedset.addItemListener(new ItemListener() {
+		      public void itemStateChanged(ItemEvent e) {
+		    	  solver.setTreeSet(chckbxSortedset.isSelected());
+		        }
+		      });
+		
+		chckbxPomijaj = new JCheckBox("Pomijaj");
+		chckbxPomijaj.setBounds(1, 258, 97, 23);
+		frame.getContentPane().add(chckbxPomijaj);
+		chckbxPomijaj.addItemListener(new ItemListener() {
+		      public void itemStateChanged(ItemEvent e) {
+		    	  solver.setPomijaj(chckbxPomijaj.isSelected());
+		        }
+		      });
+		
+		lblOpcje = new JLabel("Opcje");
+		lblOpcje.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOpcje.setBounds(11, 211, 46, 14);
+		frame.getContentPane().add(lblOpcje);
 
 	}
 }
