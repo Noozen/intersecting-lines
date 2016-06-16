@@ -137,7 +137,7 @@ public class Gui {
 		buttonGroup.add(rdbtnRandom);
 		
 		chckbxSortedset = new JCheckBox("TreeSet");
-		chckbxSortedset.setToolTipText("Po zaznaczeniu tej opcji program bedzie uzywal TreeSet'u zamiast LinkedListy.\r\nEfektem tego bedzie spowolnienie laczenia grup odcinkow z O(1) do log(n).\r\nJezeli zaznaczona jest opcja \"Pomijaj\", pomijanie bedzie dzialalo duzo bardziej \r\nefektywnie, gdyz zamiast jednego odcinka, beda pomijane\r\nwszystkie odcinki po pierwszym pominietym. Jest to mozliwe poniewaz sa one posortowane od lewego do prawego.");
+		chckbxSortedset.setToolTipText("Po zaznaczeniu tej opcji program bedzie uzywal TreeSet'u zamiast LinkedListy.\r\nEfektem tego bedzie spowolnienie laczenia grup odcinkow z O(1) do O(n).\r\nJezeli zaznaczona jest opcja \"Pomijaj\", pomijanie bedzie dzialalo duzo bardziej \r\nefektywnie, gdyz zamiast jednego odcinka, beda pomijane\r\nwszystkie odcinki po pierwszym pominietym. Jest to mozliwe poniewaz sa one posortowane od lewego do prawego.");
 		chckbxSortedset.setBounds(1, 232, 97, 23);
 		frame.getContentPane().add(chckbxSortedset);
 		chckbxSortedset.addItemListener(new ItemListener() {
