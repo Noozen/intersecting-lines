@@ -1,0 +1,1 @@
+Simple program that compares different methods of detecting intersecting lines.
